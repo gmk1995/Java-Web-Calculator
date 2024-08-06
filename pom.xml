@@ -62,12 +62,12 @@
     <distributionManagement>
         <repository>
             <id>nexus</id>
-            <name>Java-Web-Calculator-Release</name>
+            <name>flipkart-releases</name>
             <url>http://3.209.146.221:8081/repository/flipkart-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus</id>
-            <name>Java-Web-Calculator-Snapshot</name>
+            <name>flipkar-snapshot</name>
             <url>http://3.209.146.221:8081/repository/flipkar-snapshot/</url>
         </snapshotRepository>
     </distributionManagement>
