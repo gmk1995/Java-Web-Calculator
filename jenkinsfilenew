@@ -1,0 +1,46 @@
+pipeline {
+agent any
+tools{
+maven "maven"
+}
+
+//stages starts here
+
+stages{
+      stage('git checkout'){
+      steps{
+git branch: 'main', url: 'https://github.com/iroy002/Java-Web-Calculator.git'
+}
+}
+//build the code
+ 
+stage('check source code'){
+steps{
+sh "mvn clean sonar:sonar"
+}
+}
+//install package
+stage('create and install war file'){
+steps{
+sh "mvn clean package install"
+}
+}
+
+//deploy package on nexus
+stage('deploy war file on remote repo'){
+steps{
+sh "mvn deploy"
+}
+}
+
+//deploy package on tomcat
+stage('deploy war file on tomcat'){
+steps{
+sshagent(['308f8726-80b4-496c-b41e-e16918ff7ea4']) {
+    sh "scp -o StrictHostKeyChecking=no target/*.war ec2-user@3.233.186.145:/opt/apache-tomcat-9.0.91/webapps"
+}
+}
+}
+
+}//stages end here
+}//pipeline endshere
